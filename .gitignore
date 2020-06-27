@@ -5,3 +5,5 @@ SaberTest.vcxproj
 SaberTest.vcxproj.filters
 SaberTest.vcxproj.user
 SaberTest.sln
+x64/
+.vs/
