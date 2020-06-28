@@ -1,5 +1,18 @@
 #include "task1.h"
 
+// Простой способ
+void dec2bin(int num)
+{
+	printf("%d\t", num);
+	int len = sizeof(num) * 8;
+	for (int i = 0; i < len; ++i)
+	{
+		printf("%c", '0' + ((num >> (len - 1 - i)) & 1));
+	}
+	printf("\n");
+}
+
+// Не очени простой способ
 bool dec2bin(int number, unsigned int len, char* res) // Отрицательные числа преобразуются в дополнительный код
 /*
 	number - входное число

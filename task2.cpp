@@ -31,12 +31,12 @@ void List::Serialize(FILE* file)
 			}
 			else
 				r.RandPtr = 0;
-			r.DataLength = cur->data.size();
 			fwrite(&r, sizeof(r), 1, file);
-			for (int i = 0; i < r.DataLength; ++i)
+			for (int i = 0; i < cur->data.size(); ++i)
 			{
 				fwrite(&cur->data[i], sizeof(cur->data[i]), 1, file);
 			}
+			fwrite(&delimiter, sizeof(delimiter), 1, file);
 			cur = cur->next;
 			k++;
 		}
@@ -48,20 +48,23 @@ void List::Deserialize(FILE* file)
 	LiLiHeader header;
 	fread(&header, sizeof(header), 1, file);
 
+	//assert(header.FileSignature != "hLiL");
+
 	std::vector<LiLiRecord*> records;
 	std::vector<ListNode*> nodes;
 	std::string data;
-	char c;
+	char c = delimiter;
 	
 	for (int i = 0; i < header.Count; ++i)
 	{
 		data.clear();
 		records.push_back(new LiLiRecord());
 		fread(records[i], sizeof(LiLiRecord), 1, file);
-		for (int j = 0; j < records[i]->DataLength; ++j)
+		fread(&c, sizeof(c), 1, file);
+		while(c != delimiter)
 		{
-			fread(&c, sizeof(c), 1, file);
 			data += c;
+			fread(&c, sizeof(c), 1, file);
 		}
 		nodes.push_back(new ListNode());
 		nodes[i]->data = data;

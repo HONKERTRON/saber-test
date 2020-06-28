@@ -4,6 +4,7 @@
 #include <string>
 #include <iostream>
 
+const char delimiter = '\n';
 #pragma pack(push, 1)
 struct LiLiHeader
 {
@@ -16,7 +17,6 @@ struct LiLiHeader
 struct LiLiRecord
 {
     int RandPtr;
-    uint64_t DataLength;
 };
 #pragma pack(pop)
 

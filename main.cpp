@@ -2,7 +2,7 @@
 
 int main(int arc, char** argv)
 {
-	// ѕроверка дл€ первого задани€
+	// ѕроверка дл€ первого задани€ дл€ длинного способа
 	/*unsigned int size = 8;
 	char* str = new char[size+1];
 	int num;
@@ -19,51 +19,56 @@ int main(int arc, char** argv)
 			std::cout << "Error on number " << num << "\n";
 	}
 	
-	delete[] str;*/
+	delete[] str;
+	
+	// ѕроверка первого задани€ дл€ короткого способа
+	for (int i = -130; i < 130; ++i)
+	{
+		dec2bin(i);
+	}
+	*/
 
 	// ѕроверка дл€ второго задани€
-	/*FILE* f;
-	fopen_s(&f, "./test.bin", "wb");
+	//FILE* f;
+	//fopen_s(&f, "./test.bin", "wb");
 
-	List list;
+	//List list;
 
-	int size = 10;
-	for (int i = 0; i < size; ++i)
-	{
-		std::string str;
-		int len = rand() % size;
-		for (int j = 0; j < len; ++j)
-			str += 'a' + rand() % size;
-		list.PushBack(str);
-	}
-	for (int i = 0; i < size; ++i)
-	{
-		if ((rand() % 100) > 50)
-		{
-			int index = rand() % size;
-			if (index == i)
-				index = 0;
-			list.AddRelation(i, index);
-		}
-	}
-	
-	list.Print();
-	list.Serialize(f);
+	//int size = 10;
+	//for (int i = 0; i < size; ++i)
+	//{
+	//	std::string str;
+	//	int len = rand() % size;
+	//	for (int j = 0; j < len; ++j)
+	//		str += 'a' + rand() % size;
+	//	list.PushBack(str);
+	//}
+	//for (int i = 0; i < size; ++i)
+	//{
+	//	if ((rand() % 100) > 50)
+	//	{
+	//		int index = rand() % size;
+	//		if (index == i)
+	//			index = 0;
+	//		list.AddRelation(i, index);
+	//	}
+	//}
+	//
+	//list.Print();
+	//list.Serialize(f);
 
-	fclose(f);
+	//fclose(f);
 
-	std::cout << "-------------------\n\n";
+	//std::cout << "-------------------\n\n";
 
-	fopen_s(&f, "./test.bin", "rb");
+	//fopen_s(&f, "./test.bin", "rb");
 
-	List list_ceck;
+	//List list_ceck;
 
-	list_ceck.Deserialize(f);
-	list_ceck.Print();
+	//list_ceck.Deserialize(f);
+	//list_ceck.Print();
 
-	fclose(f);*/
-
-
+	//fclose(f);
 
 	return 0;
 }
