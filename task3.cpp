@@ -1,5 +1,24 @@
 #include "task3.h"
 
+float area(vec3 a, vec3 b, vec3 c)
+{
+	vec3 ab;
+	ab.copy(a);
+	ab.sub(b);
+	float ab_l = ab.length();
+	vec3 bc;
+	bc.copy(b);
+	bc.sub(c);
+	float bc_l = bc.length();
+	vec3 ca;
+	ca.copy(c);
+	ca.sub(a);
+	float ca_l = ca.length();
+	float P = (ab_l + bc_l + ca_l) / 2.0f;
+	float S = sqrtf((P - ab_l) * (P - bc_l) * (P - ca_l) * P);
+	return S;
+}
+
 void calc_mesh_normals(vec3* normals, const vec3* verts, const int* faces, int nverts, int nfaces)
 {
 	std::vector<vec3> normals_faces(nfaces / 3);
@@ -24,6 +43,8 @@ void calc_mesh_normals(vec3* normals, const vec3* verts, const int* faces, int n
 		normal.normalize();
 		//float sin_alpha = normal.length() / (v1.length() * v2.length());
 		//normal.dot(asinf(sin_alpha));
+		float S = area(verts[faces[i * 3]], verts[faces[i * 3 + 1]], verts[faces[i * 3 + 2]]);
+		normal.dot(S);
 		normals_faces[i] = normal;
 	}
 	for (int i = 0; i < nverts; ++i)

@@ -85,34 +85,34 @@ int main(int arc, char** argv)
 	//int nfaces = 6;
 
 	// Проверка 3 задачи с кубом
-	//vec3 verts[8];
-	//verts[0] = vec3(1.0f, 1.0f, -1.0f);
-	//verts[1] = vec3(1.0f, -1.0f, -1.0f);
-	//verts[2] = vec3(1.0f, 1.0f, 1.0f);
-	//verts[3] = vec3(1.0f, -1.0f, 1.0f);
-	//verts[4] = vec3(-1.0f, 1.0f, -1.0f);
-	//verts[5] = vec3(-1.0f, -1.0f, -1.0f);
-	//verts[6] = vec3(-1.0f, 1.0f, 1.0f);
-	//verts[7] = vec3(-1.0f, -1.0f, 1.0f);
-	//
-	//int nverts = 8;
+	/*vec3 verts[8];
+	verts[0] = vec3(1.0f, 1.0f, -1.0f);
+	verts[1] = vec3(1.0f, -1.0f, -1.0f);
+	verts[2] = vec3(1.0f, 1.0f, 1.0f);
+	verts[3] = vec3(1.0f, -1.0f, 1.0f);
+	verts[4] = vec3(-1.0f, 1.0f, -1.0f);
+	verts[5] = vec3(-1.0f, -1.0f, -1.0f);
+	verts[6] = vec3(-1.0f, 1.0f, 1.0f);
+	verts[7] = vec3(-1.0f, -1.0f, 1.0f);
+	
+	int nverts = 8;
 
-	//vec3 normals[8];
+	vec3 normals[8];
 
-	//int faces[] = { 5, 3, 1, 3, 8, 4, 7, 6, 8, 2, 8, 6, 1, 4, 2, 5, 2, 6, 5, 7, 3, 3, 7, 8, 7, 5, 6, 2, 4, 8, 1, 3, 4, 5, 1, 2 };
-	//int nfaces = 36;
-	//for (int i = 0; i < nfaces; ++i)
-	//	faces[i]--;
+	int faces[] = { 5, 3, 1, 3, 8, 4, 7, 6, 8, 2, 8, 6, 1, 4, 2, 5, 2, 6, 5, 7, 3, 3, 7, 8, 7, 5, 6, 2, 4, 8, 1, 3, 4, 5, 1, 2 };
+	int nfaces = 36;
+	for (int i = 0; i < nfaces; ++i)
+		faces[i]--;*/
 
 	// Запуск проверки
 
-	//calc_mesh_normals(normals, verts, faces, nverts, nfaces);
+	/*calc_mesh_normals(normals, verts, faces, nverts, nfaces);
 
-	//for (int i = 0; i < nverts; ++i)
-	//{
-	//	std::cout.precision(4);
-	//	std::cout << normals[i].pos[0] << "  " << normals[i].pos[1] << "  " << normals[i].pos[2] << "\n";
-	//}
+	for (int i = 0; i < nverts; ++i)
+	{
+		std::cout.precision(4);
+		std::cout << normals[i].pos[0] << "  " << normals[i].pos[1] << "  " << normals[i].pos[2] << "\n";
+	}*/
 
 	return 0;
 }
