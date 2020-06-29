@@ -41,7 +41,7 @@ void calc_mesh_normals(vec3* normals, const vec3* verts, const int* faces, int n
 		vec3 normal;
 		normal.cross(v1, v2);
 		normal.normalize();
-		//В случае, если уравновешивать нормали придется по весам, пригодится эта формула
+		//В случае, если уравновешивать нормали придется по углам, пригодится эта формула
 		//float sin_alpha = normal.length() / (v1.length() * v2.length());
 		//normal.dot(asinf(sin_alpha));
 		float S = area(verts[faces[i * 3]], verts[faces[i * 3 + 1]], verts[faces[i * 3 + 2]]);
