@@ -87,94 +87,94 @@ void List::Deserialize(FILE* file)
 		delete r;
 }
 
-// Плейсхолдеры дл¤ проверки
-//List::List()
-//{
-//	head = nullptr;
-//	tail = nullptr;
-//	count = 0;
-//}
-//
-//List::~List()
-//{
-//	ListNode* cur = head;
-//	ListNode* tmp = nullptr;
-//	if (cur)
-//	{
-//		while (cur != tail)
-//		{
-//			if(cur->prev)
-//				delete cur->prev;
-//			cur = cur->next;
-//			
-//		}
-//		delete cur;
-//	}
-//}
-//
-//void List::PushBack(std::string data)
-//{
-//	ListNode* node = new ListNode();
-//	node->data = data;
-//	if (head)
-//	{
-//		tail->next = node;
-//		node->prev = tail;
-//		tail = node;
-//		node->next = nullptr;
-//	}
-//	else
-//	{
-//		head = node;
-//		tail = head;
-//	}
-//	count++;
-//}
-//
-//void List::AddRelation(int i, int j)
-//{
-//	if (i && j)
-//	{
-//		ListNode* cur = head;
-//		int k = 1;
-//		while (i != k)
-//		{
-//			cur = cur->next;
-//			k++;
-//		}
-//
-//		int l = 1;
-//		ListNode* tmp = head;
-//		while (l != j)
-//		{
-//			tmp = tmp->next;
-//			l++;
-//		}
-//		cur->rand = tmp;
-//	}
-//}
-//
-//void List::Print()
-//{
-//	ListNode* tmp = head;
-//	if (tmp)
-//	{
-//		while (tmp != tail->next)
-//		{
-//			if (tmp->rand)
-//				std::cout << tmp->data << "\t:\t" << tmp->rand->data << "\n";
-//			else
-//				std::cout << tmp->data << "\n";
-//			tmp = tmp->next;
-//		}
-//	}
-//
-//}
-//
-//ListNode::ListNode()
-//{
-//	data = "";
-//	next = nullptr;
-//	prev = nullptr;
-//	rand = nullptr;
-//}
+// Плейсхолдеры дл¤ проверки работоспособности
+List::List()
+{
+	head = nullptr;
+	tail = nullptr;
+	count = 0;
+}
+
+List::~List()
+{
+	ListNode* cur = head;
+	ListNode* tmp = nullptr;
+	if (cur)
+	{
+		while (cur != tail)
+		{
+			if(cur->prev)
+				delete cur->prev;
+			cur = cur->next;
+			
+		}
+		delete cur;
+	}
+}
+
+void List::PushBack(std::string data)
+{
+	ListNode* node = new ListNode();
+	node->data = data;
+	if (head)
+	{
+		tail->next = node;
+		node->prev = tail;
+		tail = node;
+		node->next = nullptr;
+	}
+	else
+	{
+		head = node;
+		tail = head;
+	}
+	count++;
+}
+
+void List::AddRelation(int i, int j)
+{
+	if (i && j)
+	{
+		ListNode* cur = head;
+		int k = 1;
+		while (i != k)
+		{
+			cur = cur->next;
+			k++;
+		}
+
+		int l = 1;
+		ListNode* tmp = head;
+		while (l != j)
+		{
+			tmp = tmp->next;
+			l++;
+		}
+		cur->rand = tmp;
+	}
+}
+
+void List::Print()
+{
+	ListNode* tmp = head;
+	if (tmp)
+	{
+		while (tmp != tail->next)
+		{
+			if (tmp->rand)
+				std::cout << tmp->data << "\t:\t" << tmp->rand->data << "\n";
+			else
+				std::cout << tmp->data << "\n";
+			tmp = tmp->next;
+		}
+	}
+
+}
+
+ListNode::ListNode()
+{
+	data = "";
+	next = nullptr;
+	prev = nullptr;
+	rand = nullptr;
+}

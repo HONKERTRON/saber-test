@@ -4,6 +4,8 @@
 #include <string>
 #include <iostream>
 
+//2. Реализуйте функции сериализации и десериализации двусвязного списка в бинарном формате в файл.
+
 const char delimiter = '\n';
 #pragma pack(push, 1)
 struct LiLiHeader
@@ -27,8 +29,8 @@ struct ListNode
     ListNode* rand; // указатель на произвольный элемент данного списка либо NULL
     std::string data;
 
-	//Поскольку реализация самого линейного списка в задание не входит, она вынесена в комментарии
-    //ListNode();
+	//Поскольку реализация самого линейного списка в задание не входит, она отмечена отдельно
+    ListNode();
 };
 
 class List 
@@ -38,11 +40,11 @@ public:
     void Deserialize(FILE* file);  // загрузка из файла (файл открыт с помощью fopen(path, "rb"))
 	
 	//Плейсхолдеры методов для проверки работоспособности
-    //List();
-    //~List();
-    //void PushBack(std::string data);
-    //void AddRelation(int i, int j);
-    //void Print();
+    List();
+    ~List();
+    void PushBack(std::string data);
+    void AddRelation(int i, int j);
+    void Print();
 
 private:
     ListNode* head;
