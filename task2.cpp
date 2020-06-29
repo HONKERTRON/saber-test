@@ -87,7 +87,7 @@ void List::Deserialize(FILE* file)
 		delete r;
 }
 
-// Плейсхолдеры для проверки
+// РџР»РµР№СЃС…РѕР»РґРµСЂС‹ РґР»В¤ РїСЂРѕРІРµСЂРєРё
 //List::List()
 //{
 //	head = nullptr;

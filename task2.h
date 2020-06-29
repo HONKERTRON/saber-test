@@ -24,23 +24,25 @@ struct ListNode
 {
     ListNode* prev;
     ListNode* next;
-    ListNode* rand; // ��������� �� ������������ ������� ������� ������ ���� NULL
+    ListNode* rand; // указатель на произвольный элемент данного списка либо NULL
     std::string data;
 
+	//Поскольку реализация самого линейного списка в задание не входит, она вынесена в комментарии
     //ListNode();
 };
 
 class List 
 {
 public:
+    void Serialize(FILE* file);  // сохранение в файл (файл открыт с помощью fopen(path, "wb"))
+    void Deserialize(FILE* file);  // загрузка из файла (файл открыт с помощью fopen(path, "rb"))
+	
+	//Плейсхолдеры методов для проверки работоспособности
     //List();
     //~List();
     //void PushBack(std::string data);
     //void AddRelation(int i, int j);
     //void Print();
-
-    void Serialize(FILE* file);  // ���������� � ���� (���� ������ � ������� fopen(path, "wb"))
-    void Deserialize(FILE* file);  // �������� �� ����� (���� ������ � ������� fopen(path, "rb"))
 
 private:
     ListNode* head;
