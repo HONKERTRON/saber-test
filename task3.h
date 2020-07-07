@@ -17,7 +17,8 @@ struct vec3
 	void sub(vec3 vec);
 	void cross(vec3 vec1, vec3 vec2);
 	void copy(vec3 vec);
-	void dot(float a);
+	vec3 dot(float a);
+	float dot(vec3 a);
 };
 
 void calc_mesh_normals(vec3* normals, const vec3* verts, const int* faces, int nverts, int nfaces);

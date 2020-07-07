@@ -19,44 +19,55 @@ float area(vec3 a, vec3 b, vec3 c)
 	return S;
 }
 
+float angle(vec3 a, vec3 b)
+{
+	return acosf(a.dot(b) / (a.length() * b.length()));
+}
+
 void calc_mesh_normals(vec3* normals, const vec3* verts, const int* faces, int nverts, int nfaces)
 {
-	std::vector<vec3> normals_faces(nfaces / 3);
-	std::vector<std::vector<int>> incidence(nverts);
-
 	for (int i = 0; i < nfaces / 3; ++i)
 	{
-		incidence[faces[i*3]].push_back(i);
-		incidence[faces[i*3 + 1]].push_back(i);
-		incidence[faces[i*3 + 2]].push_back(i);
+		vec3 p1 = verts[faces[i * 3]];
+		vec3 p2 = verts[faces[i * 3 + 1]];
+		vec3 p3 = verts[faces[i * 3 + 2]];
 
 		vec3 v1;
 		vec3 v2;
-		v1.copy(verts[faces[i * 3 + 1]]);
-		v2.copy(verts[faces[i * 3 + 2]]);
-		v1.sub(verts[faces[i * 3]]);
+		v1.copy(p2);
+		v2.copy(p3);
+		v1.sub(p1);
 		v1.normalize();
-		v2.sub(verts[faces[i * 3]]);
+		v2.sub(p1);
 		v2.normalize();
-		vec3 normal;
-		normal.cross(v1, v2);
-		normal.normalize();
-		//В случае, если уравновешивать нормали придется другим способом, пригодится эта формула
-		//float sin_alpha = normal.length() / (v1.length() * v2.length());
-		//normal.dot(asinf(sin_alpha));
-		float S = area(verts[faces[i * 3]], verts[faces[i * 3 + 1]], verts[faces[i * 3 + 2]]);
-		normal.dot(S);
-		normals_faces[i] = normal;
+		vec3 n;
+		n.cross(v1, v2);
+		n.normalize();
+
+		float a1 = angle(v1, v2);
+		v1.copy(p1);
+		v2.copy(p3);
+		v1.sub(p2);
+		v1.normalize();
+		v2.sub(p2);
+		v2.normalize();
+		float a2 = angle(v1, v2);
+		v1.copy(p1);
+		v2.copy(p2);
+		v1.sub(p3);
+		v1.normalize();
+		v2.sub(p3);
+		v2.normalize();
+		float a3 = angle(v1, v2);
+
+		//n.dot(a1);
+		normals[faces[i * 3]].add(n.dot(a1));
+		normals[faces[i * 3 + 1]].add(n.dot(a2));
+		normals[faces[i * 3 + 2]].add(n.dot(a3));
 	}
 	for (int i = 0; i < nverts; ++i)
 	{
-		vec3 normal;
-		for (int j = 0; j < incidence[i].size(); ++j)
-		{
-			normal.add(normals_faces[incidence[i][j]]);
-		}
-		normal.normalize();
-		normals[i] = normal;
+		normals[i].normalize();
 	}
 }
 
@@ -112,8 +123,16 @@ void vec3::copy(vec3 vec)
 		pos[i] = vec.pos[i];
 }
 
-void vec3::dot(float a)
+vec3 vec3::dot(float a)
 {
+	vec3 res;
+	res.copy(*this);
 	for (int i = 0; i < 3; ++i)
-		pos[i] *= a;
+		res.pos[i] *= a;
+	return res;
+}
+
+float vec3::dot(vec3 a)
+{
+	return (pos[0] * a.pos[0]) + (pos[1] * a.pos[1]) + (pos[2] * a.pos[2]);
 }
