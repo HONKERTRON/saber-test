@@ -13,32 +13,27 @@ void List::Serialize(FILE* file)
 
 		fwrite(&header, sizeof(header), 1, file);
 
+		std::vector<ListNode*> nodes;
+		std::map<uint64_t, int> pointers;
 		ListNode* cur = head;
 		int k = 0;
 		while (cur != tail->next)
 		{
+			k++;
+			nodes.push_back(cur);
+			pointers.insert(std::make_pair(reinterpret_cast<uint64_t>(cur), k));
+			cur = cur->next;
+		}
+		for (int i = 0; i < nodes.size(); ++i)
+		{
 			LiLiRecord r;
-			if (cur->rand)
-			{
-				int j = 1;
-				ListNode* tmp = head;
-				while (tmp != cur->rand)
-				{
-					tmp = tmp->next;
-					j++;
-				}
-				r.RandPtr = j;
-			}
+			if (nodes[i]->rand)
+				r.RandPtr = pointers[reinterpret_cast<uint64_t>(nodes[i]->rand)];
 			else
 				r.RandPtr = 0;
 			fwrite(&r, sizeof(r), 1, file);
-			for (int i = 0; i < cur->data.size(); ++i)
-			{
-				fwrite(&cur->data[i], sizeof(cur->data[i]), 1, file);
-			}
+			fwrite(&nodes[i]->data[0], sizeof(char) * nodes[i]->data.size(), 1, file);
 			fwrite(&delimiter, sizeof(delimiter), 1, file);
-			cur = cur->next;
-			k++;
 		}
 	}
 }
@@ -50,7 +45,7 @@ void List::Deserialize(FILE* file)
 
 	//assert(header.FileSignature != "hLiL");
 
-	std::vector<LiLiRecord*> records;
+	std::vector<LiLiRecord> records(header.Count);
 	std::vector<ListNode*> nodes;
 	std::string data;
 	char c = delimiter;
@@ -58,8 +53,7 @@ void List::Deserialize(FILE* file)
 	for (int i = 0; i < header.Count; ++i)
 	{
 		data.clear();
-		records.push_back(new LiLiRecord());
-		fread(records[i], sizeof(LiLiRecord), 1, file);
+		fread(&records[i], sizeof(LiLiRecord), 1, file);
 		fread(&c, sizeof(c), 1, file);
 		while(c != delimiter)
 		{
@@ -74,7 +68,7 @@ void List::Deserialize(FILE* file)
 	tail = nodes[nodes.size() - 1];
 	for (int i = 0; i < header.Count; ++i)
 	{
-		int index = records[i]->RandPtr;
+		int index = records[i].RandPtr;
 		if(index > 0)
 			nodes[i]->rand = nodes[index - 1];
 		if (i > 0)
@@ -82,9 +76,6 @@ void List::Deserialize(FILE* file)
 		if (i < header.Count - 1)
 			nodes[i]->next = nodes[i + 1];
 	}
-
-	for (auto& r : records)
-		delete r;
 }
 
 // Плейсхолдеры дл¤ проверки работоспособности
