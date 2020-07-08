@@ -20,6 +20,7 @@ struct LiLiHeader
 struct LiLiRecord
 {
     int RandPtr;
+    unsigned int DataSize;
 };
 #pragma pack(pop)
 

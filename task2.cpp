@@ -31,9 +31,10 @@ void List::Serialize(FILE* file)
 				r.RandPtr = pointers[reinterpret_cast<uint64_t>(nodes[i]->rand)];
 			else
 				r.RandPtr = 0;
+			r.DataSize = nodes[i]->data.size();
 			fwrite(&r, sizeof(r), 1, file);
 			fwrite(&nodes[i]->data[0], sizeof(char) * nodes[i]->data.size(), 1, file);
-			fwrite(&delimiter, sizeof(delimiter), 1, file);
+			//fwrite(&delimiter, sizeof(delimiter), 1, file);
 		}
 	}
 }
@@ -47,21 +48,13 @@ void List::Deserialize(FILE* file)
 
 	std::vector<LiLiRecord> records(header.Count);
 	std::vector<ListNode*> nodes;
-	std::string data;
-	char c = delimiter;
 	
 	for (int i = 0; i < header.Count; ++i)
 	{
-		data.clear();
-		fread(&records[i], sizeof(LiLiRecord), 1, file);
-		fread(&c, sizeof(c), 1, file);
-		while(c != delimiter)
-		{
-			data += c;
-			fread(&c, sizeof(c), 1, file);
-		}
 		nodes.push_back(new ListNode());
-		nodes[i]->data = data;
+		fread(&records[i], sizeof(LiLiRecord), 1, file);
+		nodes[i]->data.resize(records[i].DataSize);
+		fread(&nodes[i]->data[0], sizeof(char) * records[i].DataSize, 1, file);
 	}
 
 	head = nodes[0];

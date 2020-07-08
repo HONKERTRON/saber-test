@@ -30,46 +30,53 @@ int main(int arc, char** argv)
 	*/
 
 	// Проверка для второго задания
-	//FILE* f;
-	//fopen_s(&f, "./test.bin", "wb");
+	
+	FILE* f;
+	fopen_s(&f, "./test.bin", "wb");
 
-	//List list;
+	List list;
 
-	//int size = 10;
-	//for (int i = 0; i < size; ++i)
-	//{
-	//	std::string str;
-	//	int len = rand() % size;
-	//	for (int j = 0; j < len; ++j)
-	//		str += 'a' + rand() % size;
-	//	list.PushBack(str);
-	//}
-	//for (int i = 0; i < size; ++i)
-	//{
-	//	if ((rand() % 100) > 50)
-	//	{
-	//		int index = rand() % size;
-	//		if (index == i)
-	//			index = 0;
-	//		list.AddRelation(i, index);
-	//	}
-	//}
-	//
-	//list.Print();
-	//list.Serialize(f);
+	int size = 15;
+	int text_size = 10;
+	for (int i = 0; i < size; ++i)
+	{
+		std::string str;
+		int len = rand() % text_size + 1;
+		for (int j = 0; j < len; ++j)
+			str += 'a' + rand() % text_size;
+		list.PushBack(str);
+	}
+	for (int i = 0; i < size; ++i)
+	{
+		if (rand() % 100 > 30)
+		{
+			int index = rand() % size;
+			if (index == i)
+				index = 0;
+			list.AddRelation(i, index);
+		}
+	}
+	
+	auto t1 = std::chrono::high_resolution_clock::now();
 
-	//fclose(f);
+	list.Print();
+	list.Serialize(f);
 
-	//std::cout << "-------------------\n\n";
+	fclose(f);
 
-	//fopen_s(&f, "./test.bin", "rb");
+	std::cout << "-------------------\n\n";
 
-	//List list_ceck;
+	fopen_s(&f, "./test.bin", "rb");
 
-	//list_ceck.Deserialize(f);
-	//list_ceck.Print();
+	List list_ceck;
 
-	//fclose(f);
+	list_ceck.Deserialize(f);
+	list_ceck.Print();
+
+	fclose(f);
+
+	auto t2 = std::chrono::high_resolution_clock::now();
+	std::cout << "test function took " << std::chrono::duration_cast<std::chrono::milliseconds>(t2 - t1).count() << " milliseconds\n";
 
 	// Проверка 3 задачи с квадратом
 	//vec3 verts[4];
